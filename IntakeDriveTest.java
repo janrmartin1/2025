@@ -22,12 +22,12 @@ public class IntakeDriveTest extends LinearOpMode {
     private boolean OuttakeActive = false;
     @Override
     public void runOpMode() throws InterruptedException {
-        //Servo IntakeClaw = hardwareMap.servo.get("Intake Claw");              // Chub Port 0 // O Button
+        Servo IntakeClaw = hardwareMap.servo.get("Intake Claw");              // Chub Port 0 // O Button
         Servo RightIntakeWrist = hardwareMap.servo.get("Right Intake Wrist"); // Chub Port 1 // Increments Using Dpad Side Buttons?
         Servo LeftIntakeWrist = hardwareMap.servo.get("Left Intake Wrist");   // Chub Port 2 // Ideally Stick Controlled
         Servo RightIntakeV4B = hardwareMap.servo.get("Right Intake V4B");     // Chub Port 3 // Preset To Swing Out With X
         Servo LeftIntakeV4B = hardwareMap.servo.get("Left Intake V4B");       // Chub Port 4 // --------------------------
-        //IntakeClaw.setPosition(0);    // Closes Intake Claw
+	IntakeClaw.setPosition(0);    // Closes Intake Claw
         LeftIntakeWrist.setPosition(LeftServo);    // Sets the intake wrist to the starting position // Left is 0 Right is 1
         RightIntakeWrist.setPosition(RightServo);   // Sets the intake wrist to the starting position // Left is 0 Right is 1
         LeftIntakeV4B.setPosition(1);   // Sets the intake virtual four bar to the starting position
@@ -47,28 +47,26 @@ public class IntakeDriveTest extends LinearOpMode {
                 IntakeClawClosed = false;   // Since the intake claw was opened we change this to stay accurate
             }*/
             switch (state){
-                case START:            // START state
-                    V4Bpos = 1;        // Bar fully up
+                case START:		// START state
+                    V4Bpos = 1;		// Bar fully up
                     Flex = 0;		// Wrist fully up
-                    if (gamepad2.a){   // Switch to INTAKE Position
+                    if (gamepad2.a){	// Switch to INTAKE Position
                         state = V4Bstate.INTAKE;
                     }
                     break;
                 case INTAKE:		// INTAKE state
-                    V4Bpos = .3 * ( 1 - (gamepad1.right_trigger)); // 
-                    Flex = .6;
-                    Yaw = gamepad1.touchpad_finger_1_x;  // Taking value from touchpad and saving as our desired yaw value
-                    if (gamepad2.b && IntakeClawClosed = false;){   // Close claw and toggle holder
+                    V4Bpos = .3 * ( 1 - (gamepad1.right_trigger)); // Factors trigger value or returns to baseline position if no input
+                    Flex = .6;					   // ToDo - determine default Flex value for here
+                    Yaw = gamepad1.touchpad_finger_1_x;		   // Taking value from touchpad and saving as our desired yaw value
+                    if (gamepad2.b && IntakeClawClosed = false;){  // Close claw and toggle holder
 			    IntakeClaw.setPosition(0);
 			    IntakeClawClosed = true;
 			}
-			else if (gamepad2.b && IntakeClawClosed = true;){
+			else if (gamepad2.b && IntakeClawClosed = true;){ // Open the claw and toggle holder
 		           IntakeClaw.setPosition(1);
 			    IntakeClawClosed = false;
 			}
-                    if (gamepad1.x){  //Transfer position
-                        V4Bpos = 1;
-                        Flex = 0;
+                    if (gamepad1.x){				// x button Transfer position
                         state = V4Bstate.TRANSFER;
                     }
                     break;
