@@ -15,7 +15,8 @@ public class IntakeDriveTest extends LinearOpMode {
     private enum V4Bstate{
         START,
         INTAKE,
-        TRANSFER
+        TRANSFER,
+	OUTTAKE    
     }
     V4Bstate state = V4Bstate.START;
     private boolean IntakeClawClosed = false;
@@ -73,6 +74,10 @@ public class IntakeDriveTest extends LinearOpMode {
                 case TRANSFER:
                     state = V4Bstate.START;
                     break;
+		case OUTTAKE:
+                //    if ( "button pressed"){
+		//	  state = V4Bstate.TRANSFER;
+                    break;			    
             }
             LeftIntakeV4B.setPosition(V4Bpos);
             RightIntakeV4B.setPosition(V4Bpos);
